@@ -11,7 +11,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* VIDEO FULLSCREEN */
+/* Video Fullscreen */
 .video-wrapper {
     width: 100%;
     height: 100vh;
@@ -25,7 +25,6 @@ body {
     object-fit: cover;
 }
 
-/* OVERLAY */
 .content-overlay {
     position: absolute;
     top: 0;
@@ -44,7 +43,7 @@ body {
     background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
 }
 
-/* TOMBOL PLAY & RESET */
+/* Tombol Play & Reset */
 .center-controls {
     position: absolute;
     top: 90%;
@@ -65,7 +64,6 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: 0.25s ease;
 }
 
 .btn-play {
@@ -80,7 +78,7 @@ body {
     color: white;
 }
 
-/* PROGRESS BAR */
+/* Progress Bar */
 .progress-bar-container {
     position: absolute;
     top: 0;
@@ -96,7 +94,7 @@ body {
     background: linear-gradient(90deg, #1db954, #1ed760);
 }
 
-/* LIRIK 20% TINGGI LAYAR */
+/* Lirik 20% layar */
 .lyrics-section {
     width: 100%;
     height: 20vh;
