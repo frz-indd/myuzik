@@ -31,6 +31,9 @@ async function playLyrics() {
         const element = document.getElementById(`lyric-${index}`);
         if (element) {
             element.classList.remove('active');
+            element.style.color = 'rgba(255,255,255,0.25)';
+            element.style.fontSize = '16px';
+            element.style.fontWeight = 'normal';
         }
     });
     
@@ -40,13 +43,25 @@ async function playLyrics() {
         currentLyricIndex = i;
         const lyric = lyrics[i];
         const element = document.getElementById(`lyric-${i}`);
-        element.classList.add('active');
+        if (element) {
+            element.classList.add('active');
+            element.style.color = 'rgba(255,255,255,1)';
+            element.style.fontSize = '18px';
+            element.style.fontWeight = '600';
+            element.offsetHeight;
+        }
         for (let j = 0; j < lyric.text.length; j++) {
             if (!isPlaying) break;
             updateProgress(i, j, lyric.text.length);
             await sleep(lyric.charDelay * 1000);
         }
-        element.classList.remove('active');
+        if (element) {
+            element.classList.remove('active');
+            element.style.color = 'rgba(255,255,255,0.25)';
+            element.style.fontSize = '16px';
+            element.style.fontWeight = 'normal';
+            element.offsetHeight;
+        }
         await sleep(lyric.lineDelay * 1000);
     }
     isPlaying = false;
@@ -106,6 +121,15 @@ function resetLyrics() {
     if (progressFill) {
         progressFill.style.width = '0%';
     }
+    lyrics.forEach((lyric, index) => {
+        const element = document.getElementById(`lyric-${index}`);
+        if (element) {
+            element.classList.remove('active');
+            element.style.color = 'rgba(255,255,255,0.25)';
+            element.style.fontSize = '16px';
+            element.style.fontWeight = 'normal';
+        }
+    });
     initializeLyrics();
 }
 function sleep(ms) {
@@ -116,7 +140,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const video = document.querySelector('.background-video');
     const audio = document.getElementById('audioPlayer');
     
-    // Initialize progress bar
     const progressFill = document.getElementById('progressFill');
     if (progressFill) {
         progressFill.style.width = '0%';
@@ -127,5 +150,4 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Audio format tidak didukung');
         });
     }
-    
 });
