@@ -18,32 +18,13 @@
     </audio>
     
     <div class="content-overlay">
-        <div class="album-section">
-            <div class="album-art"></div>
-        </div>
-        <div class="song-info">
-            <h2 class="song-title">whats up</h2>
-            <p class="artist-name">Artist Name</p>
+        <div class="video-overlay"></div>
+        <div class="center-controls">
+            <button class="btn-play" onclick="togglePlay()">▶</button>
+            <button class="btn-reset" onclick="resetLyrics()">↻</button>
         </div>
         <div class="lyrics-section">
             <div class="lyric-container" id="lyricContainer"></div>
-        </div>
-        <div class="music-controls">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <div class="time-display">
-                <span id="currentTime">0:00</span>
-                <span id="duration">0:00</span>
-            </div>
-            <div class="player-buttons">
-                <button class="btn-icon">♡</button>
-                <button class="btn-icon" onclick="togglePlay()">▶</button>
-                <button class="btn-icon">↻</button>
-            </div>
-            <div class="bottom-buttons">
-                <button onclick="resetLyrics()">Reset</button>
-            </div>
         </div>
     </div>
 
