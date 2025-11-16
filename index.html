@@ -7,25 +7,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <video class="background-video" autoplay muted loop playsinline>
-        <source src="assets/bg/rec.mp4" type="video/mp4">
-        <source src="assets/bg/rec.webm" type="video/webm">
-    </video>
-    
-    <audio id="audioPlayer">
-        <source src="assets/bg/audio.mp3" type="audio/mpeg">
-        <source src="assets/bg/audio.wav" type="audio/wav">
-    </audio>
-    
-    <div class="content-overlay">
-        <div class="video-overlay"></div>
-        <div class="center-controls">
-            <button class="btn-play" onclick="togglePlay()">▶</button>
-            <button class="btn-reset" onclick="resetLyrics()">↻</button>
+
+    <div class="video-wrapper">
+        <video class="background-video" muted loop playsinline>
+            <source src="assets/bg/rec.webm" type="video/webm">
+            <source src="assets/bg/rec.mov" type="video/quicktime">
+        </video>
+
+        <audio id="audioPlayer">
+            <source src="assets/bg/audio.mp3" type="audio/mpeg">
+            <source src="assets/bg/audio.wav" type="audio/wav">
+        </audio>
+
+        <div class="content-overlay">
+            <div class="video-overlay"></div>
+
+            <div class="center-controls">
+                <button class="btn-play" id="playBtn" onclick="togglePlay()">▶</button>
+                <button class="btn-reset" onclick="resetLyrics()">↻</button>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
         </div>
-        <div class="lyrics-section">
-            <div class="lyric-container" id="lyricContainer"></div>
-        </div>
+    </div>
+
+    <div class="lyrics-section">
+        <div class="lyric-container" id="lyricContainer"></div>
     </div>
 
     <script src="script.js"></script>
