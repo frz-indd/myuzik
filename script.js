@@ -29,10 +29,8 @@ async function playLyrics() {
     isPlaying = true;
 
     lyrics.forEach((_, index) => {
-        const element = document.getElementById(`lyric-${index}`);
-        if (element) {
-            element.classList.remove('active');
-        }
+        const el = document.getElementById(`lyric-${index}`);
+        if (el) el.classList.remove('active');
     });
 
     for (let i = currentLyricIndex; i < lyrics.length; i++) {
@@ -40,9 +38,9 @@ async function playLyrics() {
 
         currentLyricIndex = i;
         const lyric = lyrics[i];
-        const element = document.getElementById(`lyric-${i}`);
+        const el = document.getElementById(`lyric-${i}`);
 
-        if (element) element.classList.add('active');
+        if (el) el.classList.add('active');
 
         for (let j = 0; j < lyric.text.length; j++) {
             if (!isPlaying) break;
@@ -50,7 +48,7 @@ async function playLyrics() {
             await sleep(lyric.charDelay * 1000);
         }
 
-        if (element) element.classList.remove('active');
+        if (el) el.classList.remove('active');
         await sleep(lyric.lineDelay * 1000);
     }
 
@@ -65,7 +63,7 @@ function updateProgress(lyricIndex, charIndex, totalChars) {
 }
 
 function togglePlay() {
-    const playBtn = document.getElementById('playBtn');
+    const btn = document.getElementById('playBtn');
     const audio = document.getElementById('audioPlayer');
     const video = document.querySelector('.background-video');
 
@@ -73,12 +71,12 @@ function togglePlay() {
         pauseLyrics();
         audio.pause();
         video.pause();
-        playBtn.textContent = '▶';
+        btn.textContent = '▶';
     } else {
         playLyrics();
         audio.play();
         video.play();
-        playBtn.textContent = '⏸';
+        btn.textContent = '⏸';
     }
 }
 
@@ -94,10 +92,13 @@ function resetLyrics() {
     currentLyricIndex = 0;
 
     document.getElementById('playBtn').textContent = '▶';
-    audio.pause(); audio.currentTime = 0;
-    video.pause(); video.currentTime = 0;
+    audio.pause();
+    audio.currentTime = 0;
+    video.pause();
+    video.currentTime = 0;
 
     document.getElementById('progressFill').style.width = '0%';
+
     initializeLyrics();
 }
 
