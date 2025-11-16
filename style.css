@@ -159,15 +159,18 @@ body {
     color: rgba(255,255,255,0.25);
     text-align: center;
     opacity: 1;
-    transition: all 0.4s ease-in-out;
+    transition: color 0.3s ease, font-size 0.3s ease, font-weight 0.3s ease, text-shadow 0.3s ease;
     line-height: 1.4;
+    will-change: color, font-size, font-weight;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 }
 
 .lyric.active {
-    color: rgba(255,255,255,1);
-    font-weight: 600;
-    font-size: 18px;
-    text-shadow: 0 0 15px rgba(255,255,255,0.6);
+    color: rgba(255,255,255,1) !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    text-shadow: 0 0 15px rgba(255,255,255,0.6) !important;
     animation: pulse 1.5s ease-in-out infinite;
 }
 
