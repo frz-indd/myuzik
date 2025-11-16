@@ -76,7 +76,7 @@ function togglePlay() {
         playLyrics();
         audio.play();
         video.play();
-        btn.textContent = '&#x23f8;';
+        btn.textContent = '||';
     }
 }
 
