@@ -56,34 +56,47 @@ function updateProgress(lyricIndex, charIndex, totalChars) {
     document.getElementById('progressFill').style.width = progress + '%';
 }
 function togglePlay() {
-    if (!isPlaying) {
-        // Play audio when user clicks Play
-        const audio = document.getElementById('audioPlayer');
-        audio.currentTime = 0;
-        audio.play().catch(e => console.log('Audio play failed:', e));
-        
-        playLyrics();
-    } else {
+    const playBtn = document.getElementById('playBtn');
+    const audioPlayer = document.getElementById('audioPlayer');
+    
+    if (isPlaying) {
+        pauseLyrics();
+        audioPlayer.pause();
+        playBtn.textContent = '▶';
         isPlaying = false;
-        // Pause audio when user stops
-        const audio = document.getElementById('audioPlayer');
-        audio.pause();
+    } else {
+        playLyrics();
+        audioPlayer.play();
+        playBtn.textContent = '⏸';
+        isPlaying = true;
     }
 }
-function resetLyrics() {
+function pauseLyrics() {
     isPlaying = false;
-    currentLyricIndex = 0;
-    currentCharIndex = 0;
-    document.getElementById('progressFill').style.width = '0%';
-    
-    // Reset audio
-    const audio = document.getElementById('audioPlayer');
-    audio.pause();
-    audio.currentTime = 0;
-    
-    initializeLyrics();
+}
+function resetLyrics() {
+    const playBtn = document.getElementById('playBtn');
+    const audioPlayer = document.getElementById('audioPlayer');
+    isPlaying = false;
+    playBtn.textContent = '▶';
+    audioPlayer.pause();
+    audioPlayer.currentTime = 0;
 }
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 document.addEventListener('DOMContentLoaded', initializeLyrics);
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.querySelector('.background-video');
+    const audio = document.getElementById('audioPlayer');
+    if (video) {
+        video.play().catch(err => {
+            console.log('Video autoplay tidak didukung:', err);
+        });
+    }
+    if (audio) {
+        audio.addEventListener('error', function(e) {
+            console.log('Audio format tidak didukung');
+        });
+    }
+});
