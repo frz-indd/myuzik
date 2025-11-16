@@ -7,10 +7,11 @@
 body {
     width: 100%;
     overflow-y: scroll;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* VIDEO FULLSCREEN */
 .video-wrapper {
     width: 100%;
     height: 100vh;
@@ -24,16 +25,7 @@ body {
     object-fit: cover;
 }
 
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
-    pointer-events: none;
-}
-
+/* OVERLAY */
 .content-overlay {
     position: absolute;
     top: 0;
@@ -43,13 +35,24 @@ body {
     z-index: 10;
 }
 
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
+}
+
+/* TOMBOL PLAY & RESET */
 .center-controls {
     position: absolute;
     top: 90%;
     left: 50%;
-    transform: translate(-50%, -40%);
+    transform: translate(-50%, -50%);
     display: flex;
-    gap: 30px;
+    gap: 25px;
+    z-index: 20;
 }
 
 .btn-play,
@@ -57,12 +60,12 @@ body {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    font-size: 26px;
+    font-size: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: 0.25s ease;
 }
 
 .btn-play {
@@ -76,25 +79,28 @@ body {
     border: 2px solid rgba(255,255,255,0.4);
     color: white;
 }
+
+/* PROGRESS BAR */
 .progress-bar-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 4px;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.15);
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #1db954, #1ed760);
     width: 0%;
+    background: linear-gradient(90deg, #1db954, #1ed760);
 }
 
+/* LIRIK 20% TINGGI LAYAR */
 .lyrics-section {
     width: 100%;
     height: 20vh;
-    background: rgba(20, 20, 20, 0.9);
+    background: rgba(20,20,20,0.9);
     overflow-y: auto;
     padding: 20px;
 }
