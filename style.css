@@ -8,7 +8,7 @@ body {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #1a1a1a;
 }
 
@@ -20,6 +20,8 @@ body {
     height: 100%;
     object-fit: cover;
     z-index: 1;
+    filter: blur(5px);
+    transform: scale(1.1);
 }
 
 .content-overlay {
@@ -28,32 +30,60 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.9) 70%, rgba(0,0,0,1) 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     z-index: 5;
-    padding: 40px 20px;
+    padding: 20px;
 }
 
-.lyric-box {
-    flex: 1;
+.album-section {
+    flex: 0 0 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.album-art {
+    width: 250px;
+    height: 250px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    animation: fadeIn 0.8s ease-in;
+}
+
+.song-info {
+    flex: 0 0 auto;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in 0.2s backwards;
+}
+
+.song-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.artist-name {
+    font-size: 16px;
+    color: rgba(255,255,255,0.7);
+}
+
+.lyrics-section {
+    flex: 0 0 25%;
+    width: 100%;
+    max-width: 600px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    max-width: 600px;
-}
-
-.title {
-    font-size: 36px;
-    font-weight: bold;
-    color: #a0a0a0;
-    margin-bottom: 30px;
-    text-align: center;
-    animation: fadeIn 0.8s ease-in;
+    padding: 20px;
 }
 
 .lyric-container {
@@ -62,14 +92,13 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 200px;
+    gap: 10px;
 }
 
 .lyric {
-    font-size: 24px;
-    color: rgba(255, 255, 255, 0.3);
+    font-size: 18px;
+    color: rgba(255,255,255,0.4);
     text-align: center;
-    margin: 15px 0;
     opacity: 0;
     transition: all 0.6s ease-in-out;
     animation: slideIn 0.8s ease-out forwards;
@@ -77,9 +106,9 @@ body {
 }
 
 .lyric.active {
-    color: rgba(255, 255, 255, 1);
-    font-weight: bold;
-    font-size: 32px;
+    color: rgba(255,255,255,1);
+    font-weight: 600;
+    font-size: 20px;
     animation: pulse 1.5s ease-in-out infinite;
 }
 
@@ -105,88 +134,143 @@ body {
 
 @keyframes pulse {
     0%, 100% {
-        color: rgba(255, 255, 255, 0.8);
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        color: rgba(255,255,255,0.8);
+        text-shadow: 0 0 10px rgba(255,255,255,0.4);
     }
     50% {
-        color: rgba(255, 255, 255, 1);
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        color: rgba(255,255,255,1);
+        text-shadow: 0 0 20px rgba(255,255,255,0.8);
     }
 }
 
-.bottom-controls {
+.music-controls {
+    flex: 0 0 auto;
     width: 100%;
     max-width: 600px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
     align-items: center;
 }
 
 .progress-bar {
     width: 100%;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
+    height: 6px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 3px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #667eea, #764ba2);
-    border-radius: 2px;
+    background: linear-gradient(90deg, #1db954, #1ed760);
+    border-radius: 3px;
     width: 0%;
     transition: width 0.3s ease;
 }
 
-.controls {
+.time-display {
     display: flex;
-    gap: 15px;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+}
+
+.player-buttons {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 2px solid rgba(255,255,255,0.3);
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
-.controls button {
-    padding: 12px 30px;
-    font-size: 16px;
+.btn-icon:hover {
+    background: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.5);
+    transform: scale(1.1);
+}
+
+.btn-icon:nth-child(2) {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #1db954, #1ed760);
     border: none;
-    border-radius: 25px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-size: 24px;
+}
+
+.btn-icon:nth-child(2):hover {
+    background: linear-gradient(135deg, #1ed760, #1db954);
+    box-shadow: 0 8px 20px rgba(29,185,84,0.4);
+}
+
+.bottom-buttons {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.bottom-buttons button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    background: transparent;
     color: white;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-weight: bold;
 }
 
-.controls button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-}
-
-.controls button:active {
-    transform: scale(0.98);
+.bottom-buttons button:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.6);
 }
 
 @media (max-width: 768px) {
-    .content-overlay {
-        padding: 30px 15px;
+    .album-art {
+        width: 180px;
+        height: 180px;
     }
 
-    .title {
-        font-size: 28px;
-        margin-bottom: 20px;
+    .song-title {
+        font-size: 22px;
     }
 
     .lyric {
-        font-size: 20px;
-        margin: 12px 0;
+        font-size: 16px;
     }
 
     .lyric.active {
-        font-size: 26px;
+        font-size: 18px;
     }
 
-    .controls button {
-        padding: 10px 20px;
-        font-size: 14px;
+    .player-buttons {
+        gap: 20px;
+    }
+
+    .btn-icon {
+        width: 45px;
+        height: 45px;
+    }
+
+    .btn-icon:nth-child(2) {
+        width: 55px;
+        height: 55px;
     }
 }
