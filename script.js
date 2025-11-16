@@ -27,8 +27,6 @@ function initializeLyrics() {
 async function playLyrics() {
     if (isPlaying) return;
     isPlaying = true;
-    
-    // Reset semua lirik ke state gelap
     lyrics.forEach((lyric, index) => {
         const element = document.getElementById(`lyric-${index}`);
         if (element) {
@@ -42,18 +40,12 @@ async function playLyrics() {
         currentLyricIndex = i;
         const lyric = lyrics[i];
         const element = document.getElementById(`lyric-${i}`);
-        
-        // Aktifkan lirik saat ini (menjadi terang)
         element.classList.add('active');
-        
-        // Update progress berdasarkan karakter yang sudah ditampilkan
         for (let j = 0; j < lyric.text.length; j++) {
             if (!isPlaying) break;
             updateProgress(i, j, lyric.text.length);
             await sleep(lyric.charDelay * 1000);
         }
-        
-        // Nonaktifkan lirik setelah selesai (kembali gelap)
         element.classList.remove('active');
         await sleep(lyric.lineDelay * 1000);
     }
@@ -136,5 +128,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Chrome memblokir autoplay, jadi video akan play setelah user klik play button
 });
