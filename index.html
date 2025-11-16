@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>untitled</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <video class="background-video" autoplay muted loop playsinline>
+        <source src="../py/assets/bg/rec.mp4" type="video/mp4">
+    </video>
+    
+    <audio id="audioPlayer">
+        <source src="../py/assets/bg/audio.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="container">
+        <div class="modal-overlay">
+            <div class="modal">
+                <div class="title">whats up</div>
+                
+                <div class="lyric-container" id="lyricContainer"></div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+                <div class="controls">
+                    <button onclick="togglePlay()">Play</button>
+                    <button onclick="resetLyrics()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
