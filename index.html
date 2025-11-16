@@ -17,21 +17,19 @@
         <source src="assets/bg/audio.wav" type="audio/wav">
     </audio>
     
-    <div class="container">
-        <div class="modal-overlay">
-            <div class="modal">
-                <div class="title">whats up</div>
-                
-                <div class="lyric-container" id="lyricContainer"></div>
-                
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-
-                <div class="controls">
-                    <button onclick="togglePlay()">Play</button>
-                    <button onclick="resetLyrics()">Reset</button>
-                </div>
+    <div class="content-overlay">
+        <div class="lyric-box">
+            <div class="title">whats up</div>
+            <div class="lyric-container" id="lyricContainer"></div>
+        </div>
+        
+        <div class="bottom-controls">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="controls">
+                <button onclick="togglePlay()">Play</button>
+                <button onclick="resetLyrics()">Reset</button>
             </div>
         </div>
     </div>
