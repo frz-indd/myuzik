@@ -19,29 +19,41 @@ function initializeLyrics() {
     lyrics.forEach((lyric, index) => {
         const div = document.createElement('div');
         div.id = `lyric-${index}`;
-        div.className = 'lyric-line';
-        div.textContent = '';
+        div.className = 'lyric';
+        div.textContent = lyric.text;
         container.appendChild(div);
     });
 }
 async function playLyrics() {
     if (isPlaying) return;
     isPlaying = true;
+    
+    // Reset semua lirik ke state gelap
+    lyrics.forEach((lyric, index) => {
+        const element = document.getElementById(`lyric-${index}`);
+        if (element) {
+            element.classList.remove('active');
+        }
+    });
+    
     for (let i = currentLyricIndex; i < lyrics.length; i++) {
+        if (!isPlaying) break;
+        
         currentLyricIndex = i;
         const lyric = lyrics[i];
         const element = document.getElementById(`lyric-${i}`);
-        element.textContent = '';
+        
+        // Aktifkan lirik saat ini (menjadi terang)
         element.classList.add('active');
         
+        // Update progress berdasarkan karakter yang sudah ditampilkan
         for (let j = 0; j < lyric.text.length; j++) {
             if (!isPlaying) break;
-            
-            element.textContent += lyric.text[j];
             updateProgress(i, j, lyric.text.length);
             await sleep(lyric.charDelay * 1000);
         }
         
+        // Nonaktifkan lirik setelah selesai (kembali gelap)
         element.classList.remove('active');
         await sleep(lyric.lineDelay * 1000);
     }
@@ -58,15 +70,24 @@ function updateProgress(lyricIndex, charIndex, totalChars) {
 function togglePlay() {
     const playBtn = document.getElementById('playBtn');
     const audioPlayer = document.getElementById('audioPlayer');
+    const video = document.querySelector('.background-video');
     
     if (isPlaying) {
         pauseLyrics();
         audioPlayer.pause();
+        if (video) video.pause();
         playBtn.textContent = '▶';
         isPlaying = false;
     } else {
         playLyrics();
-        audioPlayer.play();
+        audioPlayer.play().catch(err => {
+            console.log('Audio play error:', err);
+        });
+        if (video) {
+            video.play().catch(err => {
+                console.log('Video play error:', err);
+            });
+        }
         playBtn.textContent = '⏸';
         isPlaying = true;
     }
@@ -77,27 +98,43 @@ function pauseLyrics() {
 function resetLyrics() {
     const playBtn = document.getElementById('playBtn');
     const audioPlayer = document.getElementById('audioPlayer');
+    const video = document.querySelector('.background-video');
+    const progressFill = document.getElementById('progressFill');
+    
     isPlaying = false;
+    currentLyricIndex = 0;
+    currentCharIndex = 0;
     playBtn.textContent = '▶';
     audioPlayer.pause();
     audioPlayer.currentTime = 0;
+    if (video) {
+        video.pause();
+        video.currentTime = 0;
+    }
+    if (progressFill) {
+        progressFill.style.width = '0%';
+    }
+    initializeLyrics();
 }
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-document.addEventListener('DOMContentLoaded', initializeLyrics);
 document.addEventListener('DOMContentLoaded', function() {
+    initializeLyrics();
     const video = document.querySelector('.background-video');
     const audio = document.getElementById('audioPlayer');
-    if (video) {
-        video.play().catch(err => {
-            console.log('Video autoplay tidak didukung:', err);
-        });
+    
+    // Initialize progress bar
+    const progressFill = document.getElementById('progressFill');
+    if (progressFill) {
+        progressFill.style.width = '0%';
     }
-
+    
     if (audio) {
         audio.addEventListener('error', function(e) {
             console.log('Audio format tidak didukung');
         });
     }
+    
+    // Chrome memblokir autoplay, jadi video akan play setelah user klik play button
 });
