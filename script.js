@@ -94,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Video autoplay tidak didukung:', err);
         });
     }
+
     if (audio) {
         audio.addEventListener('error', function(e) {
             console.log('Audio format tidak didukung');
