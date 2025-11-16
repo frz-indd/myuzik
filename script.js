@@ -80,7 +80,7 @@ function togglePlay() {
     } else {
         audio.play().catch(()=>{});
         video.play().catch(()=>{});
-        btn.textContent = '⏸';
+        btn.textContent = '||';
         playLyrics();
     }
 }
